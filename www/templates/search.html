@@ -1,0 +1,18 @@
+<ion-view view-title="Search">
+  <ion-content>
+    <h1>Items</h1>
+    <button class="button button-icon ion-plus" ng-click="addItem()">
+    </button>
+    <ion-list>
+      <ion-item ng-repeat="item in items">
+        {{item.name}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+
+  <div class="card" ng-show="authData">
+    <div class="item item-text-wrap">
+      Hello {{authData.facebook.displayName}}!
+    </div>
+  </div>
+</ion-view>

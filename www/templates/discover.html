@@ -1,0 +1,31 @@
+<ion-view view-title="Khám phá thú vị">
+  <!-- tab navigation -->
+  <div class="tabs-calm tabs-top">
+    <div class="tabs tabs-icon-top">
+      <a class="tab-item tab-item-active" href="#/discover">
+        <i class="icon ion-location"></i> Thông dụng
+      </a>
+      <a class="tab-item" href="#/discover_rect">
+        <i class="icon ion-map"></i> Mới tạo
+      </a>
+    </div>
+  </div>
+  <ion-content class="has-tabs-top padding">
+    <h6 class="text-center">Lịch trình được xem nhiều nhất</h6>
+    <div class="list card">
+      <div class="item item-image">
+        <img src="https://circletheworld.com/imagesc/Fotolia_86053142_L.jpg?1456444807336" ng-click="viewItinerary()">
+      </div>
+      <div class="item item-avatar">
+        <img src="./img/logo.jpg">
+        <h3>Đi bụi Bangkok tiết kiệm</h3>
+        <h6>tạo bởi <strong>Dzulich</strong></h6>
+        <h4>
+          <span><i class="icon ion-calendar"></i>&nbsp;3 ngày 2 đêm</span>
+          <span><i class="icon ion-eye"></i>&nbsp;200 lượt xem</span>
+        </h4>
+      </div>
+    </div>
+    <button class="button button-calm button-full" ng-click="loadMore()">Thêm nữa</button>
+  </ion-content>
+</ion-view>

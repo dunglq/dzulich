@@ -1,0 +1,47 @@
+<ion-view view-title="City">
+  <ion-content class="has-header padding" ng-controller="cityCtrl">
+    <form ng-submit="saveOrUpdate()">
+      <div class="list">
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Chọn nước
+          </div>
+          <select ng-model="countryId" ng-change="showCities()">
+            <option ng-selected="{{country.$id == countryId}}"
+                    ng-repeat="country in countries" value="{{country.$id}}">
+              {{country.name}}
+            </option>
+          </select>
+        </label>
+        <label class="item item-input item-floating-label">
+          <input type="hidden" placeholder="ID" ng-model="id">
+          <input type="text" placeholder="Tên thành phố" ng-model="name">
+        </label>
+        <label class="item item-input item-floating-label">
+          <input type="text" placeholder="Mã thành phố" ng-model="code">
+        </label>
+        <label class="item item-input item-floating-label">
+          <input type="text" placeholder="Ảnh" ng-model="imgUrl">
+        </label>
+        <label class="item item-input item-floating-label">
+          <textarea ng-model="shortDesc" placeholder="Thông tin chung"></textarea>
+        </label>
+        <label class="item item-input item-floating-label">
+          <textarea ng-model="longDesc" placeholder="Thông tin chi tiết"></textarea>
+        </label>
+      </div>
+      <button class="button button-calm button-full" type="submit">Tạo/Sửa</button>
+    </form>
+    <div class="list">
+      <a class="item item-thumbnail-left item-button-right" href="#" ng-repeat="city in cities">
+        <img ng-if="city.imgUrl" src="{{city.imgUrl}}" ng-click="show(city)">
+        <img ng-if="!city.imgUrl" src="../img/logo.jpg">
+        <h2 ng-click="show(city)">{{city.name}}</h2>
+        <p ng-click="show(city)">{{city.code}}</p>
+        <button class="button  button-assertive" ng-click="delete(city)">
+          <i class="icon ion-android-delete"></i>
+        </button>
+      </a>
+    </div>
+  </ion-content>
+</ion-view>

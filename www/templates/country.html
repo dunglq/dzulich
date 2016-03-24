@@ -1,0 +1,33 @@
+<ion-view view-title="Country">
+  <ion-content class="has-header padding" ng-controller="countryCtrl">
+    <form ng-submit="saveOrUpdate()">
+      <div class="list">
+        <label class="item item-input item-floating-label">
+          <input type="hidden" placeholder="ID" ng-model="id">
+          <input type="text" placeholder="Tên nước" ng-model="name">
+        </label>
+        <label class="item item-input item-floating-label">
+          <input type="text" placeholder="Mã nước" ng-model="code">
+        </label>
+        <label class="item item-input item-floating-label">
+          <input type="text" placeholder="Ảnh" ng-model="imgUrl">
+        </label>
+        <label class="item item-input item-floating-label">
+          <textarea ng-model="shortDesc" placeholder="Thông tin chung"></textarea>
+        </label>
+        <label class="item item-input item-floating-label">
+          <textarea ng-model="longDesc" placeholder="Thông tin chi tiết"></textarea>
+        </label>
+      </div>
+      <button class="button button-calm button-full" type="submit">Tạo/Sửa</button>
+    </form>
+    <div class="list">
+      <a class="item item-thumbnail-left" href="#" ng-repeat="country in countries" ng-click="show(country)">
+        <img ng-if="country.imgUrl" src="{{country.imgUrl}}">
+        <img ng-if="!country.imgUrl" src="../img/logo.jpg">
+        <h2>{{country.name}}</h2>
+        <p>{{country.code}}</p>
+      </a>
+    </div>
+  </ion-content>
+</ion-view>

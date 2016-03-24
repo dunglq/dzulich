@@ -1,0 +1,184 @@
+<ion-header-bar class="bar-calm">
+  <a class="button icon button-clear ion-android-arrow-back" href="#/discover"></a>
+  <h2 class="title">Khám phá hấp dẫn</h2>
+  <a class="button icon button-clear ion-heart"></a>
+</ion-header-bar>
+
+<ion-content class="padding">
+  <div class="list card">
+    <div class="item item-image">
+      <img src="./img/thailand.jpg">
+    </div>
+    <div class="item item-avatar">
+      <img src="./img/logo.jpg">
+      <h2>Đi bụi Bangkok tiết kiệm</h2>
+      <p>tạo bởi <strong>Dzulich</strong></p>
+      <p>
+        <i class="icon ion-calendar"></i>&nbsp;3 ngày 2 đêm
+        <i class="icon ion-eye"></i>&nbsp;200 lượt xem
+      </p>
+    </div>
+    <div class="item item-thumbnail-right">
+      <img src="./img/hotel.jpg">
+      <strong>Nouvo City Hotel</strong>
+      <p>
+        <i class="icon ion-star"></i>
+        <i class="icon ion-star"></i>
+        <i class="icon ion-star"></i>
+      </p>
+      <span class="item-text-wrap">
+        <h6>2 Samsen 2, Samsen Rd., Banglamphu, Pranakorn, 10200, Thailand</h6>
+      </span>
+    </div>
+  </div>
+  <div class="list card" id="day1">
+    <div class="item item-icon-left item-icon-right item-divider">
+      <i class="icon ion-chevron-left" ng-click="prevday()"></i>
+      <h3>Ngày 1</h3>
+      <h6>Ngày đầu tiên của bạn tại Bangkok</h6>
+      <i class="icon ion-chevron-right" ng-click="nextday()"></i>
+    </div>
+    <div class="item">
+      <p>
+        <i class="icon ion-clock"></i> 08:00 - 10:00
+      </p>
+    </div>
+    <div class="item item-thumbnail-right" ng-click="viewActivity()" ng-controller="itineraryCtrl">
+      <img src="./img/thailand.jpg">
+      <strong>The Verandah</strong>
+      <p>Thời gian: 2 tiếng</p>
+      <span class="item-text-wrap">
+        <h6>The Verandah is an a place serving international cuisine where you will be offered everything right from
+          delicious food, deserts to the spectacular river side view while you are dining.</h6>
+      </span>
+    </div>
+    <div class="item">
+      <p>
+        <i class="icon ion-clock"></i> 14:00 - 16:00
+      </p>
+    </div>
+    <div class="item item-thumbnail-right">
+      <img src="./img/malaysia.jpg">
+      <strong>Bangkok Wat Arun</strong>
+      <p>Thời gian: 2 tiếng</p>
+      <span class="item-text-wrap">
+         <h6>The Verandah is an a place serving international cuisine where you will be offered everything right from
+           delicious food, deserts to the spectacular river side view while you are dining.</h6>
+      </span>
+    </div>
+    <div class="item">
+      <p>
+        <i class="icon ion-clock"></i> 20:00 - 22:00
+      </p>
+    </div>
+    <div class="item item-thumbnail-right">
+      <img src="./img/vietnam.jpg">
+      <strong>Watpho Reclining Buddha</strong>
+      <p>Thời gian: 2 tiếng</p>
+      <span class="item-text-wrap">
+         <h6>The Verandah is an a place serving international cuisine where you will be offered everything right from
+           delicious food, deserts to the spectacular river side view while you are dining.</h6>
+      </span>
+    </div>
+  </div>
+  <div class="list card" id="day2">
+    <div class="item item-icon-left item-icon-right item-divider">
+      <i class="icon ion-chevron-left"></i>
+      <h3>Ngày 2</h3>
+      <h6>Ngày đầu tiên của bạn tại Bangkok</h6>
+      <i class="icon ion-chevron-right"></i>
+    </div>
+    <div class="item">
+      <p>
+        <i class="icon ion-clock"></i> 08:00 - 10:00
+      </p>
+    </div>
+    <div class="item item-thumbnail-right">
+      <img src="./img/thailand.jpg">
+      <strong>The Verandah</strong>
+      <p>Thời gian: 2 tiếng</p>
+      <span class="item-text-wrap">
+        <h6>The Verandah is an a place serving international cuisine where you will be offered everything right from
+          delicious food, deserts to the spectacular river side view while you are dining.</h6>
+      </span>
+    </div>
+    <div class="item">
+      <p>
+        <i class="icon ion-clock"></i> 14:00 - 16:00
+      </p>
+    </div>
+    <div class="item item-thumbnail-right">
+      <img src="./img/malaysia.jpg">
+      <strong>Bangkok Wat Arun</strong>
+      <p>Thời gian: 2 tiếng</p>
+      <span class="item-text-wrap">
+         <h6>The Verandah is an a place serving international cuisine where you will be offered everything right from
+           delicious food, deserts to the spectacular river side view while you are dining.</h6>
+      </span>
+    </div>
+    <div class="item">
+      <p>
+        <i class="icon ion-clock"></i> 20:00 - 22:00
+      </p>
+    </div>
+    <div class="item item-thumbnail-right">
+      <img src="./img/vietnam.jpg">
+      <strong>Watpho Reclining Buddha</strong>
+      <p>Thời gian: 2 tiếng</p>
+      <span class="item-text-wrap">
+         <h6>The Verandah is an a place serving international cuisine where you will be offered everything right from
+           delicious food, deserts to the spectacular river side view while you are dining.</h6>
+      </span>
+    </div>
+  </div>
+  <div class="list card" id="day3">
+    <div class="item item-icon-left item-icon-right item-divider">
+      <i class="icon ion-chevron-left"></i>
+      <h3>Ngày 3</h3>
+      <h6>Ngày đầu tiên của bạn tại Bangkok</h6>
+      <i class="icon ion-chevron-right"></i>
+    </div>
+    <div class="item">
+      <p>
+        <i class="icon ion-clock"></i> 08:00 - 10:00
+      </p>
+    </div>
+    <div class="item item-thumbnail-right">
+      <img src="./img/thailand.jpg">
+      <strong>The Verandah</strong>
+      <p>Thời gian: 2 tiếng</p>
+      <span class="item-text-wrap">
+        <h6>The Verandah is an a place serving international cuisine where you will be offered everything right from
+          delicious food, deserts to the spectacular river side view while you are dining.</h6>
+      </span>
+    </div>
+    <div class="item">
+      <p>
+        <i class="icon ion-clock"></i> 14:00 - 16:00
+      </p>
+    </div>
+    <div class="item item-thumbnail-right">
+      <img src="./img/malaysia.jpg">
+      <strong>Bangkok Wat Arun</strong>
+      <p>Thời gian: 2 tiếng</p>
+      <span class="item-text-wrap">
+         <h6>The Verandah is an a place serving international cuisine where you will be offered everything right from
+           delicious food, deserts to the spectacular river side view while you are dining.</h6>
+      </span>
+    </div>
+    <div class="item">
+      <p>
+        <i class="icon ion-clock"></i> 20:00 - 22:00
+      </p>
+    </div>
+    <div class="item item-thumbnail-right">
+      <img src="./img/vietnam.jpg">
+      <strong>Watpho Reclining Buddha</strong>
+      <p>Thời gian: 2 tiếng</p>
+      <span class="item-text-wrap">
+         <h6>The Verandah is an a place serving international cuisine where you will be offered everything right from
+           delicious food, deserts to the spectacular river side view while you are dining.</h6>
+      </span>
+    </div>
+  </div>
+</ion-content>
