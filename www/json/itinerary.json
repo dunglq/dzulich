@@ -1,0 +1,30 @@
+{
+  "IT1": {
+    "title": "Sample",
+    "description": "Sample text",
+    "days": {
+      "day1": {
+        "KCaKT0953xDDBcR1jyC": true,
+        "attractions": {
+          "HAN1": {
+            "start": "10:00"
+          },
+          "HAN2": {
+            "start": "14:00"
+          }
+        }
+      },
+      "day2": {
+        "KCaKT0953xDDBcR1jyC": true,
+        "attractions": {
+          "HAN3": {
+            "start": "9:00"
+          },
+          "HAN4": {
+            "start": "13:00"
+          }
+        }
+      }
+    }
+  }
+}

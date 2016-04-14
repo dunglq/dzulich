@@ -1,0 +1,87 @@
+{
+  "cities" : {
+    "-KCaKT0953xDDBcR1jyC" : {
+      "attractions" : {
+        "HAN1" : {
+          "address" : "Hanoi, Vietnam",
+          "code" : "HAN1",
+          "duration" : "3",
+          "finish" : "23:00",
+          "imgUrl" : "https://s3-ap-southeast-1.amazonaws.com/teabuddy/sample/country/vietnam/hanoi.jpg",
+          "longDesc" : "Wander along the streets of Old Quarter to really experience the inherent charm of Hanoi. The pulse of the city, the Old quarter is full of typical Vietnamese sights and scenes. It is an area well-known for the history, the architecture, the enormous amount and diversity of products and even the everyday life of its residents. Visitors will certainly be eager to wander along the old streets to drop by stores and buy specialties.",
+          "name" : "Old Quarter",
+          "phone" : "N/A",
+          "shortDesc" : "Wander along the streets of Old Quarter to really experience the inherent charm of Hanoi. The pulse of the city, the Old quarter is full of typical Vietnamese sights and scenes. It is an area well-known for the history, the architecture, the enormous amount and diversity of products and even the everyday life of its residents. Visitors will certainly be eager to wander along the old streets to drop by stores and buy specialties.",
+          "start" : "1:00"
+        },
+        "HAN2" : {
+          "address" : "57b Dinh Tien Hoang, Hoan Kiem, Ha Noi, Vietnam",
+          "code" : "HAN2",
+          "duration" : "1",
+          "finish" : "20:30",
+          "imgUrl" : "https://s3-ap-southeast-1.amazonaws.com/teabuddy/sample/country/vietnam/hanoi.jpg",
+          "longDesc" : "Thang Long Water Puppet Theatre is a familiar address for both domestic tourists and foreign ones, who want to enjoy water puppet shows and discover the beauty of this unique Vietnam traditional art. The show depicts traditional Vietnamese life and scenes from communal entertainment. It is a fascinating experience for both adults and kids.",
+          "name" : "Thang Long Water Puppet Theatre",
+          "phone" : "+84-439364335",
+          "shortDesc" : "Thang Long Water Puppet Theatre is a familiar address for both domestic tourists and foreign ones, who want to enjoy water puppet shows and discover the beauty of this unique Vietnam traditional art. The show depicts traditional Vietnamese life and scenes from communal entertainment. It is a fascinating experience for both adults and kids.",
+          "start" : "15:00"
+        },
+        "HAN3" : {
+          "address" : "Hoan Kiem District, Hanoi, Vietnam",
+          "code" : "HAN3",
+          "duration" : "2",
+          "finish" : "23:00",
+          "imgUrl" : "https://s3-ap-southeast-1.amazonaws.com/teabuddy/sample/country/vietnam/hanoi.jpg",
+          "longDesc" : "The Hoan Keim lake offers endless opportunities for people watching and recreation. A daily tableau for morning walkers and star-gazed couples, it’s interesting to witness the flurry of activity that this lake is privy to. A massive home base to many local eateries and hawker stalls, the lake is indispensable in Hanoi’s local scene.",
+          "name" : "Hoan Kiem Lake",
+          "phone" : "N/A",
+          "shortDesc" : "The Hoan Keim lake offers endless opportunities for people watching and recreation. A daily tableau for morning walkers and star-gazed couples, it’s interesting to witness the flurry of activity that this lake is privy to. A massive home base to many local eateries and hawker stalls, the lake is indispensable in Hanoi’s local scene.",
+          "start" : "1:00"
+        },
+        "HAN4" : {
+          "address" : "Van Mieu, Dong Da, Ha Noi, Vietnam",
+          "code" : "HAN4",
+          "duration" : "3",
+          "finish" : "17:30",
+          "imgUrl" : "https://s3-ap-southeast-1.amazonaws.com/teabuddy/sample/country/vietnam/hanoi.jpg",
+          "longDesc" : "Also know as Van Mieu, The Temple of Literature is one of the oldest major monuments of Vietnam. It’s home to remnants of Vietnam's pre 19th and 20th century history. Founded by King Ly Thanh Tong in 1070, it became the site of the country's first University, Quoc Tu Giam in 1076. The ambiance is serene and the beautifully landscaped grounds ooze spiritual calm.",
+          "name" : "Temple Of Literature And National University",
+          "phone" : "+84-43742499",
+          "shortDesc" : "Also know as Van Mieu, The Temple of Literature is one of the oldest major monuments of Vietnam. It’s home to remnants of Vietnam's pre 19th and 20th century history. Founded by King Ly Thanh Tong in 1070, it became the site of the country's first University, Quoc Tu Giam in 1076. The ambiance is serene and the beautifully landscaped grounds ooze spiritual calm.",
+          "start" : "7:30"
+        }
+      },
+      "code" : "HAN",
+      "imgUrl" : "https://s3-ap-southeast-1.amazonaws.com/teabuddy/sample/country/vietnam/hanoi.jpg",
+      "longDesc" : "a",
+      "name" : "Hà Nội",
+      "shortDesc" : "D"
+    },
+    "-KCaL7HzaT5vLfsNoGoN" : {
+      "code" : "SGN",
+      "imgUrl" : "https://s3-ap-southeast-1.amazonaws.com/teabuddy/sample/country/vietnam/hochiminh.jpg",
+      "longDesc" : "a",
+      "name" : "Hồ Chí Minh",
+      "shortDesc" : "a"
+    },
+    "-KCaU8OtPNGMHZHGp_t1" : {
+      "code" : "DAN",
+      "imgUrl" : "https://s3-ap-southeast-1.amazonaws.com/teabuddy/sample/country/vietnam/danang.jpg",
+      "longDesc" : "a",
+      "name" : "Đà Nẵng",
+      "shortDesc" : "a"
+    },
+    "-KCaUW5i-NSrlLDkyyML" : {
+      "code" : "NT",
+      "imgUrl" : "https://s3-ap-southeast-1.amazonaws.com/teabuddy/sample/country/vietnam/hochiminh.jpg",
+      "longDesc" : "a",
+      "name" : "Nha Trang",
+      "shortDesc" : "a"
+    }
+  },
+  "code" : "VN",
+  "imgUrl" : "https://s3-ap-southeast-1.amazonaws.com/teabuddy/sample/country/vietnam/vietnam.jpg",
+  "longDesc" : "Bờ biển Việt Nam dài 3 260 km, biên giới đất liền dài 4 510 km. Trên đất liền, từ điểm cực Bắc đến điểm cực Nam (theo đường chim bay) dài 1 650km, từ điểm cực Đông sang điểm cực Tây nơi rộng nhất 600km (Bắc bộ), 400 km (Nam bộ), nơi hẹp nhất 50km (Quảng Bình).\n\nKinh tuyến: 102º 08' - 109º 28' đông\nVĩ tuyến:  8º 02' - 23º 23' bắc\n\nViệt Nam là đầu mối giao thông từ  Ấn Độ Dương sang Thái Bình Dương.\n\nKhí hậu: Việt Nam là nước nhiệt đới gió mùa; Trải dài xuôi về Xích Đạo nhưng Việt Nam lại có những điều kiện tự nhiên khí hậu và gió mùa khác biệt giữa đôi miền Nam Bắc. Một mùa đông lạnh ẩm đặc trưng miền Bắc trái chiều với không khí đón Tết đến xuân về ấm nóng ở trong Nam.\n\nĐịa hình: Lãnh thổ Việt Nam bao gồm 3 phần 4 là đồi núi;\n\nTài nguyên: Việt Nam có nguồn tài nguyên vô cùng phong phú như: tài nguyên rừng, tài nguyên thủy hải sản, tài nguyên du lịch và nhiều loại khoáng sản đa dạng.\n\nĐơn vị hành chính: Việt Nam có 63 tỉnh và thành phố.\n\nVăn hóa: Với 54 dân tộc anh em, đất nước Việt Nam có nền văn hóa đa dạng và phong phú từ miền Bắc đến miền Nam. Sự đa dạng và phong phú thế hiện qua từng con người, từng vùng, từng địa phương. Đất nước Việt Nam tự hào khi có rất nhiều di sản văn hóa phi vật thể về các loại nghệ thuật đặc trưng của từng vùng và từng thời kỳ trong lịch sử.\n\nViệt Nam là đất nước tươi đẹp gồm rất nhiều danh lam thắm cảnh nổi tiếng được UNESCO công nhận, đặc biệt Vịnh Hạ Long của Việt Nam được công nhận làm 1 trong 7 kỳ quan thiên nhiên thế giới mới vào ngày 11/11/2011.",
+  "name" : "Việt Nam",
+  "shortDesc" : "Nước Cộng hoà Xã hội chủ nghĩa Việt Nam là một dải đất hình chữ  S, nằm ở trung tâm khu vực Đông Nam Á, ở phía đông bán đảo Đông Dương, phía bắc giáp Trung Quốc, phía tây giáp Lào, Campuchia, phía đông nam trông ra biển Đông và Thái Bình Dương."
+}

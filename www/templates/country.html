@@ -24,7 +24,7 @@
     <div class="list">
       <a class="item item-thumbnail-left" href="#" ng-repeat="country in countries" ng-click="show(country)">
         <img ng-if="country.imgUrl" src="{{country.imgUrl}}">
-        <img ng-if="!country.imgUrl" src="../img/logo.jpg">
+        <img ng-if="!country.imgUrl" src="./img/logo.jpg">
         <h2>{{country.name}}</h2>
         <p>{{country.code}}</p>
       </a>
