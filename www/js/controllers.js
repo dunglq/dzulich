@@ -104,34 +104,18 @@ angular.module('dzulich.controllers', [])
     $scope.countries = countries;
 
     function reset() {
-      $scope.name = '';
-      $scope.code = '';
-      $scope.imgUrl = '';
-      $scope.shortDesc = '';
-      $scope.longDesc = '';
-      $scope.id = '';
+      $scope.country = null;
     }
 
-    $scope.saveOrUpdate = function () {
-      if ($scope.id === null) {
-        $scope.countries.$add({
-          name: $scope.name,
-          code: $scope.code,
-          imgUrl: $scope.imgUrl,
-          shortDesc: $scope.shortDesc,
-          longDesc: $scope.longDesc
-        }).then(function (ref) {
-          console.log("added record with id " + ref.key());
+    $scope.saveOrUpdate = function (country) {
+      if (country.$id != null) {
+        $scope.countries.$save(country).then(function (ref) {
+          console.log("modified record with id " + ref.key());
         });
       } else {
-        var id = $scope.id;
-        var country = countries.$getRecord(id);
-        country.name = $scope.name;
-        country.code = $scope.code;
-        country.imgUrl = $scope.imgUrl;
-        country.shortDesc = $scope.shortDesc;
-        country.longDesc = $scope.longDesc;
-        countries.$save(country).then(function (ref) {
+        $scope.countries.$add(
+          $scope.country
+        ).then(function (ref) {
           console.log("added record with id " + ref.key());
         });
       }
@@ -139,132 +123,95 @@ angular.module('dzulich.controllers', [])
     }
 
     $scope.show = function (country) {
-      $scope.name = country.name;
-      $scope.code = country.code;
-      $scope.imgUrl = country.imgUrl;
-      $scope.shortDesc = country.shortDesc;
-      $scope.longDesc = country.longDesc;
-      $scope.id = country.$id;
+      $scope.country = country;
     }
   })
 
-  .controller('cityCtrl', function ($scope, $stateParams, $firebaseArray, countries, firebase, $ionicLoading) {
+  .controller('cityCtrl', function ($scope, $stateParams, $firebaseArray, countries) {
     // initialize countries list
     $scope.countries = countries;
 
-    function showLoading() {
-      // Setup the loader
-      $ionicLoading.show({
-        content: 'Loading',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 100,
-        showDelay: 0
-      });
-    }
-
-    function hideLoading() {
-      // Setup the loader
-      $ionicLoading.hide();
-    }
-
     function reset() {
-      $scope.name = '';
-      $scope.code = '';
-      $scope.imgUrl = '';
-      $scope.shortDesc = '';
-      $scope.longDesc = '';
-      $scope.id = '';
+      $scope.city = null;
     }
 
-    $scope.saveOrUpdate = function () {
-      var cities = $scope.cities;
-      // add new
-      var cityId = $scope.id;
-      showLoading();
-      if (cityId == null || cityId == '') {
-        cities.$add({
-          name: $scope.name,
-          code: $scope.code,
-          imgUrl: $scope.imgUrl,
-          shortDesc: $scope.shortDesc,
-          longDesc: $scope.longDesc
-        }).then(function (ref) {
-          $scope.cities = cities;
-          reset();
-          hideLoading();
+    $scope.saveOrUpdate = function (city) {
+      if (city.$id != null) {
+        $scope.cities.$save(city).then(function (ref) {
+          console.log("modified record with id " + ref.key());
         });
       } else {
-        var currCity = cities.$getRecord(cityId);
-        currCity.name = $scope.name;
-        currCity.code = $scope.code;
-        currCity.imgUrl = $scope.imgUrl;
-        currCity.shortDesc = $scope.shortDesc;
-        currCity.longDesc = $scope.longDesc;
-        cities.$save(currCity).then(function (ref) {
-          $scope.cities = cities;
-          reset();
-          hideLoading();
+        $scope.cities.$add(
+          $scope.city
+        ).then(function (ref) {
+          console.log("added record with id " + ref.key());
         });
       }
+      reset()
     }
 
     $scope.show = function (city) {
-      // get from scope (city list already loaded before)
-      var cities = $scope.cities;
-      var currCity = cities.$getRecord(city.$id);
-      $scope.name = currCity.name;
-      $scope.code = currCity.code;
-      $scope.imgUrl = currCity.imgUrl;
-      $scope.shortDesc = currCity.shortDesc;
-      $scope.longDesc = currCity.longDesc;
-      $scope.id = currCity.$id;
-    }
-
-    $scope.delete = function (city) {
-      // get from scope (city list already loaded before)
-      var cities = $scope.cities;
-      showLoading();
-      var currCity = cities.$getRecord(city.$id);
-      cities.$remove(currCity).then(function (ref) {
-        //ref.key() === item.$id; // true
-        $scope.cities = cities;
-        hideLoading();
-      });
+      $scope.city = city;
     }
 
     $scope.showCities = function () {
-      var currCountry = countries.$getRecord($scope.countryId);
-      var cities = $firebaseArray(new Firebase("https://tripdiary.firebaseio.com/countries/" + currCountry.$id + "/cities"));
+      var cities = $firebaseArray(
+        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
+          .child($scope.countryId)
+          .child("cities"));
       $scope.cities = cities;
       reset();
     }
   })
 
-  .controller('activityCtrl', function ($scope, $stateParams, $firebaseArray, countries, activities, firebase, $ionicLoading) {
+  .controller('attractionCtrl', function ($scope, $stateParams, $firebaseArray, countries) {
     // initialize countries list
     $scope.countries = countries;
 
-    $scope.enableCities = function () {
-      var currCountry = countries.$getRecord($scope.countryId);
-      var cities = $firebaseArray(new Firebase("https://tripdiary.firebaseio.com/countries/" + currCountry.$id + "/cities"));
+    $scope.showCities = function () {
+      var currCountry = countries.$getRecord();
+      var cities = $firebaseArray(
+        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
+          .child($scope.countryId)
+          .child("cities"));
       $scope.cities = cities;
     }
 
-    $scope.showActivities = function () {
-      var currCountry = countries.$getRecord($scope.countryId);
-      var cities = $firebaseArray(new Firebase("https://tripdiary.firebaseio.com/countries/" + currCountry.$id + "/cities"));
-      var currCity = cities.$getRecord($scope.cityId);
+    $scope.showAttractions = function () {
+      var attractions = $firebaseArray(
+        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
+          .child($scope.countryId)
+          .child("cities")
+          .child($scope.cityId)
+          .child("attractions"));
+      $scope.attractions = attractions;
+    }
 
-      var activities = $firebaseArray(new Firebase("https://tripdiary.firebaseio.com/countries/"
-        + currCountry.$id + "/cities" + currCity.$id));
-      $scope.activities = activities;
+    $scope.show = function (attraction) {
+      $scope.attraction = attraction;
+    }
+
+    $scope.saveOrUpdate = function (attraction) {
+      if (attraction.$id != null) {
+        $scope.attractions.$save(attraction).then(function (ref) {
+          console.log("modified record with id " + ref.key());
+        });
+      } else {
+        $scope.attractions.$add($scope.attraction).then(function (ref) {
+          console.log("added record with id " + ref.key());
+        });
+      }
+      reset()
+    }
+
+    function reset() {
+      $scope.attraction = null;
     }
   })
   .
-  factory("firebase", function () {
-    var firebase = new Firebase("https://tripdiary.firebaseio.com/");
-    return firebase;
+  factory("ref", function () {
+    var ref = new Firebase("https://tripdiary.firebaseio.com/");
+    return ref;
   })
 
   .factory("items", function ($firebaseArray) {
@@ -282,9 +229,9 @@ angular.module('dzulich.controllers', [])
     return $firebaseArray(citiesRef);
   })
 
-  .factory("activities", function ($firebaseArray) {
-    var activityRef = new Firebase("https://tripdiary.firebaseio.com/countries/cities/activities");
-    return $firebaseArray(activityRef);
+  .factory("attractions", function ($firebaseArray) {
+    var attractionRef = new Firebase("https://tripdiary.firebaseio.com/countries/cities/attractions");
+    return $firebaseArray(attractionRef);
   })
 
   .factory("auth", function ($firebaseAuth) {

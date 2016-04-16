@@ -77,12 +77,12 @@ angular.module('dzulich', ['ionic', 'dzulich.controllers', 'firebase'])
           }
         }
       })
-      .state('app.activity', {
-        url: '/activity',
+      .state('app.attraction', {
+        url: '/attraction',
         views: {
           'menuContent': {
-            templateUrl: 'templates/activity.html',
-            controller: 'activityCtrl'
+            templateUrl: 'templates/attraction.html',
+            controller: 'attractionCtrl'
           }
         }
       })

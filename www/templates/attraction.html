@@ -1,0 +1,70 @@
+<ion-view view-title="Địa điểm tham quan">
+  <ion-content class="has-header padding" ng-controller="attractionCtrl">
+    <div class="list">
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Chọn đất nước
+        </div>
+        <select ng-model="countryId" ng-change="showCities()">
+          <option ng-selected="{{country.$id == countryId}}"
+                  ng-repeat="country in countries" value="{{country.$id}}">
+            {{country.name}}
+          </option>
+        </select>
+      </label>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Chọn thành phố
+        </div>
+        <select ng-model="cityId" ng-change="showAttractions()">
+          <option ng-selected="{{city.$id == cityId}}"
+                  ng-repeat="city in cities" value="{{city.$id}}">
+            {{city.name}}
+          </option>
+        </select>
+      </label>
+      <label class="item item-input item-floating-label">
+        <input type="hidden" placeholder="ID" ng-model="id">
+        <input type="text" placeholder="Tên địa điểm" ng-model="attraction.name">
+      </label>
+      <label class="item item-input item-floating-label">
+        <input type="text" placeholder="Mã địa điểm" ng-model="attraction.code">
+      </label>
+      <label class="item item-input item-floating-label">
+        <input type="text" placeholder="Ảnh" ng-model="attraction.imgUrl">
+      </label>
+      <label class="item item-input item-floating-label">
+        <input type="text" placeholder="Địa chỉ" ng-model="attraction.address">
+      </label>
+      <label class="item item-input item-floating-label">
+        <input type="text" placeholder="Điện thoại" ng-model="attraction.phone">
+      </label>
+      <label class="item item-input item-floating-label">
+        <input type="text" placeholder="Giá vé" ng-model="attraction.price">
+      </label>
+      <label class="item item-input item-floating-label">
+        <input type="text" placeholder="Thời lượng" ng-model="attraction.duration">
+      </label>
+      <label class="item item-input item-floating-label">
+        <input type="text" placeholder="Mở" ng-model="attraction.time.open">
+        <input type="text" placeholder="Đóng" ng-model="attraction.time.close">
+      </label>
+      <label class="item item-input item-floating-label">
+        <textarea ng-model="attraction.shortDesc" placeholder="Thông tin chung" rows="3"></textarea>
+      </label>
+      <label class="item item-input item-floating-label">
+        <textarea ng-model="attraction.longDesc" placeholder="Thông tin chi tiết" rows="5"></textarea>
+      </label>
+    </div>
+    <button class="button button-calm button-full" ng-click="saveOrUpdate(attraction)">Tạo/Sửa</button>
+    <div class="list">
+      <a class="item item-thumbnail-left" href="#" ng-repeat="attraction in attractions" ng-click="show(attraction)">
+        <img ng-if="attraction.imgUrl" src="{{attraction.imgUrl}}">
+        <img ng-if="!attraction.imgUrl" src="./img/logo.jpg">
+        <h2>{{attraction.name}}</h2>
+        <p>{{attraction.code}}</p>
+        <button class="button icon ion-android-delete" ng-click="attractions.$remove(attraction)"></button>
+      </a>
+    </div>
+  </ion-content>
+</ion-view>
