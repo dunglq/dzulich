@@ -68,6 +68,15 @@ angular.module('dzulich', ['ionic', 'dzulich.controllers', 'firebase'])
           }
         }
       })
+      .state('app.country-view', {
+        url: '/country-view',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/country-view.html',
+            controller: 'countryCtrl'
+          }
+        }
+      })
       .state('app.city', {
         url: '/city',
         views: {
@@ -83,6 +92,24 @@ angular.module('dzulich', ['ionic', 'dzulich.controllers', 'firebase'])
           'menuContent': {
             templateUrl: 'templates/attraction.html',
             controller: 'attractionCtrl'
+          }
+        }
+      })
+      .state('app.hotels', {
+        url: '/hotel',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/hotel.html',
+            controller: 'hotelCtrl'
+          }
+        }
+      })
+      .state('app.itinerary-create', {
+        url: '/itinerary-create',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/itinerary-create.html',
+            controller: 'itineraryCtrl'
           }
         }
       })

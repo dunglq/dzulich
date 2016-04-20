@@ -208,8 +208,133 @@ angular.module('dzulich.controllers', [])
       $scope.attraction = null;
     }
   })
-  .
-  factory("ref", function () {
+
+  .controller('hotelCtrl', function ($scope, $stateParams, $firebaseArray, countries) {
+    // initialize countries list
+    $scope.countries = countries;
+
+    $scope.showCities = function (countryId) {
+      var cities = $firebaseArray(
+        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
+          .child(countryId)
+          .child("cities"));
+      $scope.cities = cities;
+    }
+
+    $scope.showHotels = function (cityId) {
+      var hotels = $firebaseArray(
+        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
+          .child($scope.countryId)
+          .child("cities")
+          .child(cityId)
+          .child("hotels"));
+      $scope.hotels = hotels;
+    }
+
+    $scope.show = function (hotel) {
+      $scope.hotel = hotel;
+    }
+
+    $scope.saveOrUpdate = function (hotel) {
+      if (hotel.$id != null) {
+        $scope.hotels.$save(hotel).then(function (ref) {
+          console.log("modified record with id " + ref.key());
+        });
+      } else {
+        $scope.hotels.$add($scope.hotel).then(function (ref) {
+          console.log("added record with id " + ref.key());
+        });
+      }
+      reset();
+    }
+
+    function reset() {
+      $scope.hotel = null;
+    }
+  })
+
+  .controller('itineraryCtrl', function ($scope, $stateParams, $firebaseArray, $firebaseObject, countries) {
+    // initialize countries list
+    $scope.countries = countries;
+
+    $scope.createItinerary = function () {
+      var itineraries = $firebaseArray(
+        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
+          .child($scope.countryId)
+          .child("itineraries"));
+
+      var cities = $firebaseArray(
+        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
+          .child($scope.countryId)
+          .child("cities"));
+      $scope.cities = cities;
+
+      // add new itinerary
+      itineraries.$add($scope.itinerary)
+        .then(function (itineraryRef) {
+          console.log("added record with id " + itineraryRef.key());
+
+          $scope.itinerary = $firebaseObject(
+            (new Firebase("https://tripdiary.firebaseio.com/countries/"))
+              .child($scope.countryId)
+              .child("itineraries").child(itineraryRef.key()));
+
+          var days = $firebaseArray(
+            (new Firebase("https://tripdiary.firebaseio.com/countries/"))
+              .child($scope.countryId)
+              .child("itineraries").child(itineraryRef.key())
+              .child("days"));
+
+          days.$add({city: "", attraction: "", start: "00:00"})
+            .then(function (ref) {
+              console.log("added record with id " + ref.key());
+              $scope.days = days;
+            });
+
+
+        });
+    }
+
+    $scope.addMoreDay = function (itinerary) {
+      var days = $firebaseArray(
+        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
+          .child($scope.countryId)
+          .child("itineraries").child(itinerary.$id)
+          .child("days"));
+
+      days.$add({city: "", attraction: "", start: "00:00"})
+        .then(function (ref) {
+          console.log("added record with id " + ref.key());
+          $scope.days = days;
+        });
+    }
+
+    $scope.showAttractions = function (cityId) {
+      var attractions = $firebaseArray(
+        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
+          .child($scope.countryId)
+          .child("cities")
+          .child(cityId)
+          .child("attractions"));
+      $scope.attractions = attractions;
+    }
+
+    $scope.saveDay = function (itinerary, day, attractionId) {
+      // use firebase
+      var dayRef = new Firebase("https://tripdiary.firebaseio.com/countries/")
+        .child($scope.countryId).child("itineraries").child(itinerary.$id)
+        .child("days").child((day.$id));
+      dayRef.update({
+        city: "1",
+        attraction: attractionId,
+        start: "00:00"
+      })
+    }
+
+
+  })
+
+  .factory("ref", function () {
     var ref = new Firebase("https://tripdiary.firebaseio.com/");
     return ref;
   })
@@ -221,6 +346,11 @@ angular.module('dzulich.controllers', [])
 
   .factory("countries", function ($firebaseArray) {
     var countriesRef = new Firebase("https://tripdiary.firebaseio.com/countries");
+    return $firebaseArray(countriesRef);
+  })
+
+  .factory("itineraries", function ($firebaseArray) {
+    var countriesRef = new Firebase("https://tripdiary.firebaseio.com/countries/itineraries");
     return $firebaseArray(countriesRef);
   })
 

@@ -1,0 +1,58 @@
+<ion-view view-title="Tạo lịch trình">
+  <ion-content class="has-header padding" ng-controller="itineraryCtrl">
+    <!-- Country -->
+    <label class="item item-input item-select">
+      <div class="input-label">
+        Chọn nước
+      </div>
+      <select ng-model="countryId">
+        <option ng-selected="{{country.$id == countryId}}"
+                ng-repeat="country in countries" value="{{country.$id}}">
+          {{country.name}}
+        </option>
+      </select>
+    </label>
+    <label class="item item-input item-stacked-label">
+      <span class="input-label">Chuyến đi thú vị này là</span>
+      <input type="text" placeholder="Du lịch bụi không tốn tiền ..." ng-model="itinerary.name">
+    </label>
+    <label class="item item-input item-stacked-label">
+      <span class="input-label">Hãy tóm tắt một chút về chuyến đi này</span>
+      <textarea placeholder="Chuyến đi của tôi về ..." rows="5" ng-model="itinerary.desc"></textarea>
+    </label>
+    <button class="item button button-full button-assertive" ng-click="createItinerary()" ng-show="itinerary.$id==null">
+      Tạo lịch trình
+    </button>
+    <br/>
+    <!-- main itinerary -->
+    <div class="list" ng-repeat="day in days">
+      <label class="item item-divider">
+        Day {{$index+1}}
+      </label>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Chọn thành phố
+        </div>
+        <select ng-model="cityId" ng-change="showAttractions(cityId)">
+          <option ng-repeat="city in cities" value="{{city.$id}}">
+            {{city.name}}
+          </option>
+        </select>
+      </label>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Chọn địa danh
+        </div>
+        <select ng-model="attractionId" ng-change="saveDay(itinerary, day, attractionId)">
+          <option ng-repeat="attraction in attractions" value="{{attraction.$id}}">
+            {{attraction.name}}
+          </option>
+        </select>
+      </label>
+    </div>
+    <button class="item button button-full button-assertive" ng-click="addMoreDay(itinerary)"
+            ng-show="itinerary.$id!=null">
+      Thêm ngày
+    </button>
+  </ion-content>
+</ion-view>

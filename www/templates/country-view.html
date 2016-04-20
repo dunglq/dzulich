@@ -1,0 +1,22 @@
+<ion-view view-title="Danh sách đất nước">
+  <ion-content class="has-header padding" ng-controller="countryCtrl">
+    <div class="list card" ng-repeat="country in countries">
+      <div class="item item-image">
+        <img ng-if="country.imgUrl" ng-src="{{country.imgUrl}}">
+        <img ng-if="!country.imgUrl" ng-src="./img/logo.jpg">
+      </div>
+      <div class="item item-body">
+        <h1>{{country.name}}</h1>
+        <h4>{{country.shortDesc}}</h4>
+      </div>
+      <div class="item text-right">
+        <button class="button icon-left ion-information button-outline button-positive">
+          Thông tin thêm
+        </button>
+        <button class="button icon-left ion-map button-outline button-balanced">
+          Xem lịch trình
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
