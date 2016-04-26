@@ -1,0 +1,34 @@
+<ion-view view-title="Khám phá lịch trình">
+  <ion-content class="has-header padding" ng-controller="itineraryCtrl">
+    <label class="item item-input item-select">
+      <div class="input-label">
+        Chọn nước
+      </div>
+      <select ng-model="countryId" ng-change="showItineraries(countryId)">
+        <option ng-selected="{{country.$id == countryId}}"
+                ng-repeat="country in countries" value="{{country.$id}}">
+          {{country.name}}
+        </option>
+      </select>
+    </label>
+    <div class="list card" ng-repeat="itinerary in itineraries">
+      <div class="item item-image">
+        <img ng-if="itinerary.imgUrl" ng-src="{{itinerary.imgUrl}}">
+        <img ng-if="!itinerary.imgUrl" ng-src="./img/logo.jpg">
+      </div>
+      <div class="item item-avatar">
+        <img src="./img/logo.jpg">
+        <h3>{{itinerary.name}}</h3>
+        <h6>tạo bởi <strong>Dzulich</strong></h6>
+        <h4>
+          <span><i class="icon ion-calendar"></i>&nbsp;3 ngày 2 đêm</span>
+          <span><i class="icon ion-eye"></i>&nbsp;200 lượt xem</span>
+        </h4>
+      </div>
+      <a class="button button-full button-positive"
+         href="#/app/itinerary-view/{{countryId}}/{{itinerary.$id}}">
+        Chi tiết
+      </a>
+    </div>
+  </ion-content>
+</ion-view>

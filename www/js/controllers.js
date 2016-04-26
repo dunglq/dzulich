@@ -253,16 +253,25 @@ angular.module('dzulich.controllers', [])
     }
   })
 
-  .controller('itineraryCtrl', function ($scope, $stateParams, $firebaseArray, $firebaseObject, countries) {
+  .controller('itineraryCtrl', function ($scope, $stateParams, $firebaseArray, $firebaseObject, countries, $parse, $state, $location) {
     // initialize countries list
     $scope.countries = countries;
 
+    $stateParams.countryId != null ? $scope.countryId = $stateParams.countryId : $scope.countryId = null;
+    if ($stateParams.countryId) {
+      $scope.itineraries = $firebaseArray(
+        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
+          .child($scope.countryId).child("itineraries"));
+    }
     $scope.createItinerary = function () {
+
+      // all itineraries
       var itineraries = $firebaseArray(
         (new Firebase("https://tripdiary.firebaseio.com/countries/"))
-          .child($scope.countryId)
+          .child($scope.countryId != null ? $scope.countryId : $stateParams.countryId)
           .child("itineraries"));
 
+      // get all cities by countryId
       var cities = $firebaseArray(
         (new Firebase("https://tripdiary.firebaseio.com/countries/"))
           .child($scope.countryId)
@@ -273,65 +282,105 @@ angular.module('dzulich.controllers', [])
       itineraries.$add($scope.itinerary)
         .then(function (itineraryRef) {
           console.log("added record with id " + itineraryRef.key());
-
+          // set current itinerary object
           $scope.itinerary = $firebaseObject(
             (new Firebase("https://tripdiary.firebaseio.com/countries/"))
               .child($scope.countryId)
               .child("itineraries").child(itineraryRef.key()));
 
+          // get all days of an itinerary
           var days = $firebaseArray(
             (new Firebase("https://tripdiary.firebaseio.com/countries/"))
               .child($scope.countryId)
               .child("itineraries").child(itineraryRef.key())
               .child("days"));
-
-          days.$add({city: "", attraction: "", start: "00:00"})
+          // add new day
+          days.$add({cityId: ""})
             .then(function (ref) {
               console.log("added record with id " + ref.key());
-              $scope.days = days;
+              // get all day's activities
+              var activitiesRef = $firebaseArray(
+                (new Firebase("https://tripdiary.firebaseio.com/countries/"))
+                  .child($scope.countryId)
+                  .child("itineraries").child(itineraryRef.key())
+                  .child("days")
+                  .child(ref.key()).child("activities"));
+              // add new activity
+              activitiesRef.$add({attractionId: "", starttime: ""}).then(function (ref) {
+                console.log("added record with id " + ref.key());
+              })
             });
-
-
-        });
-    }
-
-    $scope.addMoreDay = function (itinerary) {
-      var days = $firebaseArray(
-        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
-          .child($scope.countryId)
-          .child("itineraries").child(itinerary.$id)
-          .child("days"));
-
-      days.$add({city: "", attraction: "", start: "00:00"})
-        .then(function (ref) {
-          console.log("added record with id " + ref.key());
+          // add days to scope
           $scope.days = days;
         });
+      // set itinerary list
+      $scope.itineraries = itineraries;
     }
 
-    $scope.showAttractions = function (cityId) {
+    $scope.saveDayActivity = function (days, day) {
+      days.$save(day).then(function (ref) {
+        console.log("modified record with id " + ref.key());
+      })
+    }
+
+    $scope.addDayActivity = function (days, dayId) {
+      $firebaseArray(days.$ref().child(dayId).child("activities")).$add({
+        attractionId: "",
+        starttime: ""
+      }).then(function (ref) {
+        console.log("added record with id " + ref.key());
+      })
+    }
+
+    $scope.addDay = function (itinerary, days) {
+      days.$add({cityId: ""})
+        .then(function (ref) {
+          console.log("added record with id " + ref.key());
+          // get all day's activities
+          var activitiesRef = $firebaseArray(
+            (new Firebase("https://tripdiary.firebaseio.com/countries/"))
+              .child($scope.countryId)
+              .child("itineraries").child(itinerary.$id)
+              .child("days")
+              .child(ref.key()).child("activities"));
+          // add new activity
+          activitiesRef.$add({attractionId: "", starttime: ""}).then(function (ref) {
+            console.log("added record with id " + ref.key());
+          })
+        });
+    }
+
+    $scope.showAttractions = function (index, cityId) {
       var attractions = $firebaseArray(
         (new Firebase("https://tripdiary.firebaseio.com/countries/"))
           .child($scope.countryId)
           .child("cities")
           .child(cityId)
           .child("attractions"));
-      $scope.attractions = attractions;
+
+      // Get the model
+      $scope['attractions' + index] = attractions;
     }
 
-    $scope.saveDay = function (itinerary, day, attractionId) {
-      // use firebase
-      var dayRef = new Firebase("https://tripdiary.firebaseio.com/countries/")
-        .child($scope.countryId).child("itineraries").child(itinerary.$id)
-        .child("days").child((day.$id));
-      dayRef.update({
-        city: "1",
-        attraction: attractionId,
-        start: "00:00"
-      })
+    $scope.completeItinerary = function () {
+      $scope.itinerary = null;
+      $scope.days = null;
     }
 
+    $scope.showItineraries = function (countryId) {
+      $scope.itineraries = $firebaseArray(
+        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
+          .child(countryId).child("itineraries"));
+    }
+  })
 
+  .controller('itineraryDetailCtrl', function ($scope, $stateParams, $firebaseArray, $firebaseObject) {
+    var itinerary = $firebaseObject(
+      (new Firebase("https://tripdiary.firebaseio.com/countries/"))
+        .child($stateParams.countryId)
+        .child("itineraries")
+        .child($stateParams.itineraryId));
+    $scope.itinerary = itinerary;
   })
 
   .factory("ref", function () {

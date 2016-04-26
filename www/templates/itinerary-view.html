@@ -1,0 +1,25 @@
+<ion-view view-title="{{itinerary.name}}" ng-controller="itineraryDetailCtrl">
+  <ion-content>
+    <div class="item item-image">
+      <img ng-if="itinerary.imgUrl" ng-src="{{itinerary.imgUrl}}">
+      <img ng-if="!itinerary.imgUrl" ng-src="./img/logo.jpg">
+    </div>
+    <div class="item item-body">
+      <h1>{{itinerary.name}}</h1>
+      <h2>{{itinerary.desc}}</h2>
+    </div>
+
+    <div class="list" ng-repeat="day in itinerary.days">
+      <label class="item energized-bg ion-calendar">
+        Ngày {{$index+1}} - {{day.cityId}}
+      </label>
+      <!-- activities -->
+      <div ng-repeat="activity in day.activities | orderBy: 'startime'">
+        <div class="item item-divider ion-clock"> {{activity.starttime}}</div>
+        <label class="item">
+          {{activity.attractionId}}
+        </label>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

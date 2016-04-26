@@ -113,6 +113,24 @@ angular.module('dzulich', ['ionic', 'dzulich.controllers', 'firebase'])
           }
         }
       })
+      .state('app.itinerary-list', {
+        url: '/itinerary-list/:countryId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/itinerary-list.html',
+            controller: 'itineraryCtrl'
+          }
+        }
+      })
+      .state('app.itinerary-view', {
+        url: '/itinerary-view/:countryId/:itineraryId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/itinerary-view.html',
+            controller: 'itineraryDetailCtrl'
+          }
+        }
+      })
       .state('app.single', {
         url: '/playlists/:playlistId',
         views: {
