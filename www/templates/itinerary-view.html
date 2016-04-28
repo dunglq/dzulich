@@ -9,16 +9,21 @@
       <h2>{{itinerary.desc}}</h2>
     </div>
 
-    <div class="list" ng-repeat="day in itinerary.days">
+    <div class="list" ng-repeat="day in itinerary.days"
+         ng-init="city=getCity(day.cityId)">
       <label class="item energized-bg ion-calendar">
-        Ngày {{$index+1}} - {{day.cityId}}
+        Ngày {{$index+1}} - {{city.name}}
       </label>
       <!-- activities -->
-      <div ng-repeat="activity in day.activities | orderBy: 'startime'">
+      <div ng-repeat="activity in day.activities | orderBy: 'startime'"
+           ng-init="attraction=getAttraction(day.cityId, activity.attractionId)">
         <div class="item item-divider ion-clock"> {{activity.starttime}}</div>
-        <label class="item">
-          {{activity.attractionId}}
-        </label>
+        <a class="item item-thumbnail-left" href="#">
+          <img ng-if="attraction.imgUrl" src="{{attraction.imgUrl}}">
+          <img ng-if="!attraction.imgUrl" src="./img/logo.jpg">
+          <h2>{{attraction.name}}</h2>
+          <p>{{attraction.shortDesc}}</p>
+        </a>
       </div>
     </div>
   </ion-content>
