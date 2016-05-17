@@ -102,7 +102,6 @@ angular.module('dzulich.controllers', [])
 
   .controller('countryCtrl', function ($scope, $stateParams, $firebaseArray) {
     var rootRef = new Firebase("https://tripdiary.firebaseio.com/");
-
     $scope.countries = $firebaseArray(rootRef.child('countries'));
 
     function reset() {
@@ -132,7 +131,6 @@ angular.module('dzulich.controllers', [])
 
     // initialize countries list
     $scope.countries = $firebaseArray(rootRef.child('countries'));
-    $scope.cities = $firebaseArray(rootRef.child('cities'));
 
     function reset() {
       $scope.city = null;
@@ -158,33 +156,25 @@ angular.module('dzulich.controllers', [])
       $scope.city = city;
     }
 
-    $scope.showCities = function () {
-      var cities = $firebaseArray(rootRef.child('cities'));
-      $scope.cities = cities;
+    $scope.showCities = function (countryId) {
+      var citiesRef = rootRef.child('cities');
+      $scope.cities = $firebaseArray(citiesRef.orderByChild("countryId").equalTo(countryId));
     }
   })
 
   .controller('attractionCtrl', function ($scope, $stateParams, $firebaseArray) {
     var rootRef = new Firebase("https://tripdiary.firebaseio.com/");
-
     // initialize countries list
     $scope.countries = $firebaseArray(rootRef.child('countries'));
 
-    $scope.showCities = function () {
-      var countryId = $scope.attraction.countryId;
+    $scope.showCities = function (countryId) {
       var citiesRef = rootRef.child('cities');
-
-      /*citiesRef.orderByChild("countryId")
-       .startAt(countryId).endAt(countryId).on("value",
-       function (snapshot) {
-       $scope.cities = snapshot.val();
-       });*/
-      $scope.cities = $firebaseArray(citiesRef);
+      $scope.cities = $firebaseArray(citiesRef.orderByChild("countryId").equalTo(countryId));
     }
 
-    $scope.showAttractions = function () {
+    $scope.showAttractions = function (cityId) {
       var attractionsRef = rootRef.child('attractions');
-      $scope.attractions = $firebaseArray(attractionsRef);
+      $scope.attractions = $firebaseArray(attractionsRef.orderByChild("cityId").equalTo(cityId));
     }
 
     $scope.show = function (attraction) {
