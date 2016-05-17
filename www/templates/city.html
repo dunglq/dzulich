@@ -5,8 +5,8 @@
         <div class="input-label">
           Chọn nước
         </div>
-        <select ng-model="countryId" ng-change="showCities()">
-          <option ng-selected="{{country.$id == countryId}}"
+        <select ng-model="city.countryId" ng-change="showCities()">
+          <option ng-selected="{{country.$id == city.countryId}}"
                   ng-repeat="country in countries" value="{{country.$id}}">
             {{country.name}}
           </option>

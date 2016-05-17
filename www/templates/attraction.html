@@ -5,8 +5,8 @@
         <div class="input-label">
           Chọn đất nước
         </div>
-        <select ng-model="countryId" ng-change="showCities()">
-          <option ng-selected="{{country.$id == countryId}}"
+        <select ng-model="attraction.countryId" ng-change="showCities()">
+          <option ng-selected="{{country.$id == attraction.countryId}}"
                   ng-repeat="country in countries" value="{{country.$id}}">
             {{country.name}}
           </option>
@@ -16,8 +16,8 @@
         <div class="input-label">
           Chọn thành phố
         </div>
-        <select ng-model="cityId" ng-change="showAttractions()">
-          <option ng-selected="{{city.$id == cityId}}"
+        <select ng-model="attraction.cityId" ng-change="showAttractions()">
+          <option ng-selected="{{city.$id == attraction.cityId}}"
                   ng-repeat="city in cities" value="{{city.$id}}">
             {{city.name}}
           </option>

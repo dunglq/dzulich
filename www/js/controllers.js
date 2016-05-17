@@ -100,8 +100,10 @@ angular.module('dzulich.controllers', [])
   .controller('discoverCtrl', function ($scope, $stateParams) {
   })
 
-  .controller('countryCtrl', function ($scope, $stateParams, $firebaseArray, countries, $ionicLoading) {
-    $scope.countries = countries;
+  .controller('countryCtrl', function ($scope, $stateParams, $firebaseArray) {
+    var rootRef = new Firebase("https://tripdiary-new.firebaseio.com/");
+
+    $scope.countries = $firebaseArray(rootRef.child('countries'));
 
     function reset() {
       $scope.country = null;
@@ -113,9 +115,7 @@ angular.module('dzulich.controllers', [])
           console.log("modified record with id " + ref.key());
         });
       } else {
-        $scope.countries.$add(
-          $scope.country
-        ).then(function (ref) {
+        $scope.countries.$add($scope.country).then(function (ref) {
           console.log("added record with id " + ref.key());
         });
       }
@@ -127,9 +127,11 @@ angular.module('dzulich.controllers', [])
     }
   })
 
-  .controller('cityCtrl', function ($scope, $stateParams, $firebaseArray, countries) {
+  .controller('cityCtrl', function ($scope, $stateParams, $firebaseArray, $firebaseObject) {
+    var rootRef = new Firebase("https://tripdiary-new.firebaseio.com/");
     // initialize countries list
-    $scope.countries = countries;
+    $scope.countries = $firebaseArray(rootRef.child('countries'));
+    $scope.cities = $firebaseArray(rootRef.child('cities'));
 
     function reset() {
       $scope.city = null;
@@ -141,10 +143,11 @@ angular.module('dzulich.controllers', [])
           console.log("modified record with id " + ref.key());
         });
       } else {
-        $scope.cities.$add(
-          $scope.city
-        ).then(function (ref) {
+        $scope.cities.$add(city).then(function (ref) {
           console.log("added record with id " + ref.key());
+          // update relation
+          rootRef.child('countries')
+            .child(city.countryId).child('cities').child(ref.key()).set(true);
         });
       }
       reset()
@@ -155,36 +158,30 @@ angular.module('dzulich.controllers', [])
     }
 
     $scope.showCities = function () {
-      var cities = $firebaseArray(
-        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
-          .child($scope.countryId)
-          .child("cities"));
+      var cities = $firebaseArray(rootRef.child('cities'));
       $scope.cities = cities;
-      reset();
     }
   })
 
-  .controller('attractionCtrl', function ($scope, $stateParams, $firebaseArray, countries) {
+  .controller('attractionCtrl', function ($scope, $stateParams, $firebaseArray) {
+    var rootRef = new Firebase("https://tripdiary-new.firebaseio.com/");
     // initialize countries list
-    $scope.countries = countries;
+    $scope.countries = $firebaseArray(rootRef.child('countries'));
 
     $scope.showCities = function () {
-      var currCountry = countries.$getRecord();
-      var cities = $firebaseArray(
-        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
-          .child($scope.countryId)
-          .child("cities"));
-      $scope.cities = cities;
+      var countryId = $scope.attraction.countryId;
+      var citiesRef = rootRef.child('cities');
+
+      citiesRef.orderByChild("countryId")
+        .startAt(countryId).endAt(countryId).on("value",
+        function (snapshot) {
+          $scope.cities = snapshot.val();
+        });
     }
 
     $scope.showAttractions = function () {
-      var attractions = $firebaseArray(
-        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
-          .child($scope.countryId)
-          .child("cities")
-          .child($scope.cityId)
-          .child("attractions"));
-      $scope.attractions = attractions;
+      var attractionsRef = rootRef.child('attractions');
+      $scope.attractions = $firebaseArray(attractionsRef);
     }
 
     $scope.show = function (attraction) {
@@ -197,8 +194,11 @@ angular.module('dzulich.controllers', [])
           console.log("modified record with id " + ref.key());
         });
       } else {
-        $scope.attractions.$add($scope.attraction).then(function (ref) {
+        $scope.attractions.$add(attraction).then(function (ref) {
           console.log("added record with id " + ref.key());
+          // update relation
+          rootRef.child('cities')
+            .child(attraction.cityId).child('attractions').child(ref.key()).set(true);
         });
       }
       reset()
@@ -210,24 +210,18 @@ angular.module('dzulich.controllers', [])
   })
 
   .controller('hotelCtrl', function ($scope, $stateParams, $firebaseArray, countries) {
+    var rootRef = new Firebase("https://tripdiary-new.firebaseio.com/");
     // initialize countries list
-    $scope.countries = countries;
+    $scope.countries = $firebaseArray(rootRef.child('countries'));
+    $scope.cities = $firebaseArray(rootRef.child('cities'));
 
-    $scope.showCities = function (countryId) {
-      var cities = $firebaseArray(
-        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
-          .child(countryId)
-          .child("cities"));
+    $scope.showCities = function () {
+      var cities = $firebaseArray(rootRef.child('cities'));
       $scope.cities = cities;
     }
 
     $scope.showHotels = function (cityId) {
-      var hotels = $firebaseArray(
-        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
-          .child($scope.countryId)
-          .child("cities")
-          .child(cityId)
-          .child("hotels"));
+      var hotels = $firebaseArray(rootRef.child('hotels'));
       $scope.hotels = hotels;
     }
 
@@ -241,8 +235,11 @@ angular.module('dzulich.controllers', [])
           console.log("modified record with id " + ref.key());
         });
       } else {
-        $scope.hotels.$add($scope.hotel).then(function (ref) {
+        $scope.hotels.$add(hotel).then(function (ref) {
           console.log("added record with id " + ref.key());
+          // update relation
+          rootRef.child('cities')
+            .child(hotel.cityId).child('hotels').child(ref.key()).set(true);
         });
       }
       reset();
@@ -253,29 +250,21 @@ angular.module('dzulich.controllers', [])
     }
   })
 
-  .controller('itineraryCtrl', function ($scope, $stateParams, $firebaseArray, $firebaseObject, countries, $parse, $state, $location) {
-    // initialize countries list
-    $scope.countries = countries;
+  .controller('itineraryCtrl', function ($scope, $stateParams, $firebaseArray, $firebaseObject) {
+    var rootRef = new Firebase("https://tripdiary-new.firebaseio.com/");
+    $scope.countries = $firebaseArray(rootRef.child('countries'));
+
     $stateParams.countryId != null ? $scope.countryId = $stateParams.countryId : $scope.countryId = null;
     if ($stateParams.countryId) {
-      $scope.itineraries = $firebaseArray(
-        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
-          .child($scope.countryId).child("itineraries"));
+      $scope.itineraries = $firebaseArray(rootRef.child("itineraries"));
     }
 
     $scope.createItinerary = function () {
-
       // all itineraries
-      var itineraries = $firebaseArray(
-        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
-          .child($scope.countryId != null ? $scope.countryId : $stateParams.countryId)
-          .child("itineraries"));
+      var itineraries = $firebaseArray(rootRef.child("itineraries"));
 
       // get all cities by countryId
-      var cities = $firebaseArray(
-        (new Firebase("https://tripdiary.firebaseio.com/countries/"))
-          .child($scope.countryId)
-          .child("cities"));
+      var cities = $firebaseArray(rootRef.child("cities"));
       $scope.cities = cities;
 
       // add new itinerary
@@ -403,7 +392,7 @@ angular.module('dzulich.controllers', [])
   })
 
   .factory("ref", function () {
-    var ref = new Firebase("https://tripdiary.firebaseio.com/");
+    var ref = new Firebase("https://tripdiary-new.firebaseio.com/");
     return ref;
   })
 
@@ -413,7 +402,7 @@ angular.module('dzulich.controllers', [])
   })
 
   .factory("countries", function ($firebaseArray) {
-    var countriesRef = new Firebase("https://tripdiary.firebaseio.com/countries");
+    var countriesRef = new Firebase("https://tripdiary-new.firebaseio.com/countries");
     return $firebaseArray(countriesRef);
   })
 
